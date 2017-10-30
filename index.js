@@ -33,5 +33,5 @@ tick = function ({ seed, diff, otk }) {
   return { time, otk };
 };
 
-export default { to_otk, tick };
+export default { totp, tick };
 //# sourceMappingURL=index.js.map

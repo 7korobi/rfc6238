@@ -1,6 +1,6 @@
 {
   "name": "rfc6238",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "TOTP rfc6238",
   "main": "index.js",
   "license": "MIT",

@@ -22,4 +22,4 @@ tick = ({ seed, diff, otk })->
   old = time
   { time, otk }
 
-export default { to_otk, tick }
+export default { totp, tick }
