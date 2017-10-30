@@ -21,8 +21,8 @@ to_otk = function (now, secret) {
 };
 
 tick = function (msec, seed, cb) {
-  var old, ticker;
-  old = 0;
+  var diff, old, ticker;
+  old = diff = 0;
   ticker = function () {
     var now, otk, time;
     now = new Date() - diff;
@@ -30,8 +30,8 @@ tick = function (msec, seed, cb) {
     if (old < time) {
       otk = to_otk(now, seed);
     }
-    old = time;
-    return cb({ time, otk });
+    diff = cb({ time, otk });
+    return old = time;
   };
   ticker();
   return setInterval(f, msec);
