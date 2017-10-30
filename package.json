@@ -1,0 +1,21 @@
+{
+  "name": "rfc6238",
+  "version": "1.0.0",
+  "description": "TOTP rfc6238",
+  "main": "index.js",
+  "license": "MIT",
+  "author": "7korobi",
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest",
+    "postinstall": "coffee --map --transpile -o index.js ./src/index.coffee"
+  },
+  "dependencies": {
+    "base-2n": "^1.0.0",
+    "jssha": "^2.3.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "coffeescript": "^2.0.1"
+  }
+}
