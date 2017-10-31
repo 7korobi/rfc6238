@@ -4,7 +4,7 @@ import Base from 'base-2n'
 Base64 = Base(6, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/")
 Base32 = Base(5, "abcdefghijklmnopqrstuvwxyz234567")
 
-totp = (now, secret)->
+at = (now, secret)->
   sha = new jsSHA "SHA-1", "B64"
   sha.setHMACKey Base32.toHex(secret), "HEX"
   sha.update Base64.byNumber 8, now // 30000
@@ -14,12 +14,12 @@ totp = (now, secret)->
   "000000#{key}"[-6..]
 
 old = 0
-tick = ({ seed, diff, otk })->
+tick = ({ seed, diff, totp })->
   now = new Date - diff
   time = 30 - (now // 1000) % 30
-  if old < time
-    otk = totp now, seed
+  if old < time or totp.length < 6
+    totp = at now, seed
   old = time
-  { time, otk }
+  { time, totp }
 
-export default { totp, tick }
+export default { at, tick }
