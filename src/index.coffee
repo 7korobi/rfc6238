@@ -13,13 +13,15 @@ at = (now, secret)->
   key = 0x7fffffff & parseInt hex[offset..][0..7], 16
   "000000#{key}"[-6..]
 
-old = 0
+old_time = 0
+old_seed = ""
 tick = ({ seed, diff, totp })->
   now = new Date - diff
   time = 30 - (now // 1000) % 30
-  if old < time or totp.length < 6
+  if old_time < time or old_seed != seed
     totp = at now, seed
-  old = time
+  old_seed = seed
+  old_time = time
   { time, totp }
 
 export default { at, tick }
