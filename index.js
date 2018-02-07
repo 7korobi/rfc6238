@@ -11,6 +11,9 @@ Base32 = Base(5, "abcdefghijklmnopqrstuvwxyz234567");
 
 at = function (now, secret) {
   var hex, key, offset, sha;
+  if (!secret) {
+    return "";
+  }
   sha = new jsSHA("SHA-1", "B64");
   sha.setHMACKey(Base32.toHex(secret), "HEX");
   sha.update(Base64.byNumber(8, Math.floor(now / 30000)));
@@ -28,12 +31,6 @@ tick = function ({ seed, diff, totp }) {
   var now, time;
   now = new Date() - diff;
   time = 30 - Math.floor(now / 1000) % 30;
-  if (!seed) {
-    return {
-      time,
-      totp: ""
-    };
-  }
   if (old_time < time || old_seed !== seed) {
     totp = at(now, seed);
   }

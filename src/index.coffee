@@ -5,6 +5,8 @@ Base64 = Base(6, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789
 Base32 = Base(5, "abcdefghijklmnopqrstuvwxyz234567")
 
 at = (now, secret)->
+  return "" unless secret
+
   sha = new jsSHA "SHA-1", "B64"
   sha.setHMACKey Base32.toHex(secret), "HEX"
   sha.update Base64.byNumber 8, now // 30000
@@ -19,7 +21,6 @@ old_seed = ""
 tick = ({ seed, diff, totp })->
   now = new Date - diff
   time = 30 - (now // 1000) % 30
-  return { time, totp: "" } unless seed
 
   if old_time < time or old_seed != seed
     totp = at now, seed
