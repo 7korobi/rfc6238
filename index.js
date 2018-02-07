@@ -28,6 +28,12 @@ tick = function ({ seed, diff, totp }) {
   var now, time;
   now = new Date() - diff;
   time = 30 - Math.floor(now / 1000) % 30;
+  if (!seed) {
+    return {
+      time,
+      totp: ""
+    };
+  }
   if (old_time < time || old_seed !== seed) {
     totp = at(now, seed);
   }

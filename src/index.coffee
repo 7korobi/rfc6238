@@ -15,13 +15,16 @@ at = (now, secret)->
 
 old_time = 0
 old_seed = ""
+
 tick = ({ seed, diff, totp })->
   now = new Date - diff
   time = 30 - (now // 1000) % 30
+  return { time, totp: "" } unless seed
+
   if old_time < time or old_seed != seed
     totp = at now, seed
   old_seed = seed
   old_time = time
-  { time, totp }
+  return { time, totp }
 
 export default { at, tick }
